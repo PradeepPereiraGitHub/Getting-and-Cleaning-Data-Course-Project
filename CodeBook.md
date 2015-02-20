@@ -20,6 +20,7 @@ https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Datas
 
 Data Files Used In Processing:
 
+```{r}
 ./getdata_projectfiles_UCI HAR Dataset/features.txt
 ./getdata_projectfiles_UCI HAR Dataset/train/X_train.txt
 ./getdata_projectfiles_UCI HAR Dataset/test/X_test.txt
@@ -28,6 +29,9 @@ Data Files Used In Processing:
 ./getdata_projectfiles_UCI HAR Dataset/train/subject_train.txt
 ./getdata_projectfiles_UCI HAR Dataset/test/subject_test.txt
 ./getdata_projectfiles_UCI HAR Dataset/activity_labels.txt
+
+```
+
 
 ```{r}
 summary(cars)
