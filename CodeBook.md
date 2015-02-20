@@ -18,18 +18,18 @@ https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Datas
 
 3. All processing in the runanalysis.R script has been coded to source the requisite data files from the above directory.
 
-Data Files Used In Processing:
+##Data Files Used In Processing:
 
-The data available to us is from a sequence of different tests across different 'features' - the names of which are provided in the 'features' file (below)
+a. The data available to us is from a sequence of different tests across different 'features' - the names of which are provided in the 'features' file (below)
 
 
 ```{r}
 ./getdata_projectfiles_UCI HAR Dataset/features.txt
 ```
 
-The readings for these tests for the 'features' mentioned above have been measured in both a 'train' and 'test' environments - values for which are provided in the 'X_train' and 'X_test' files (below)
+b. The readings for these tests for the 'features' mentioned above have been measured in both a 'train' and 'test' environments - values for which are provided in the 'X_train' and 'X_test' files (below)
 
-Note: For our assigment we will be extracting selected features - where the feature name contains 'mean()' and 'std()' only the rest will be ignored.
+Note: For our assigment we will be extracting selected features - where the feature name contains 'mean()' and 'std()' only. The rest will be ignored.
 
 
 ```{r}
@@ -38,7 +38,7 @@ Note: For our assigment we will be extracting selected features - where the feat
 
 ```
 
-These measurements have been carried out on 'subjects' who have been identified by a serial number across both the 'test' and 'train' environments and are available in the 'subject_train' and 'subject_test' files (below)
+c. These measurements have been carried out on 'subjects' who have been identified by a serial number across both the 'test' and 'train' environments and are available in the 'subject_train' and 'subject_test' files (below)
 
 
 ```{r}
@@ -47,7 +47,7 @@ These measurements have been carried out on 'subjects' who have been identified 
 
 ```
 
-The 'subjects' have been put through the tests for the above mentioned  'features' being measured across various types of 'activities' that are identified by number - 1 through 6 - and available in the 'y_train' and 'y_test' files (below)
+d. The 'subjects' have been put through the tests for the above mentioned  'features' being measured across various types of 'activities' that are identified by number - 1 through 6 - and available in the 'y_train' and 'y_test' files (below)
 
 ```{r}
 ./getdata_projectfiles_UCI HAR Dataset/train/y_train.txt
@@ -55,18 +55,18 @@ The 'subjects' have been put through the tests for the above mentioned  'feature
 
 ```
 
-The above 'activities' identified by number need to be mapped to a descriptive name (STANDING,WALKING etc) which is provided in the 'activity_labels' file (below)
+e. The above 'activities' identified by number need to be mapped to a descriptive name (STANDING,WALKING etc) which is provided in the 'activity_labels' file (below)
 
 ```{r}
 ./getdata_projectfiles_UCI HAR Dataset/activity_labels.txt
 
 ```
 
-Data Processing Sequence:
+##Data Processing Sequence:
 
 We will build 3 different data sets and combine them for our final data set
 
-The First Data Set:
+###The First Data Set:
 
 We first build a data table of the 'train' and 'test' data with selected 'features' as the column names
 
@@ -97,7 +97,8 @@ FirstColFeaturesData_All<- rbind(FirstColFeaturesData_Train, FirstColFeaturesDat
 names(FirstColFeaturesData_All) <- FirstColFeaturesData_ColNames$Names
 
 ```
-The Second Data Set:
+
+###The Second Data Set:
 
 We next build the second to data set of the 'subject' data as below.
 
@@ -123,7 +124,8 @@ names(SecondColSubjectData_All) <- c("subject")
 
 
 ```
-The Third Data Set:
+
+###The Third Data Set:
 
 We next build the third data set of the 'activity' data as below.
 
@@ -150,7 +152,7 @@ names(ThirdColActivityData_All) <- c("activity")
 
 ```
 
-Combine the above 3 sets of data into our final data set - column wise
+###Combine the above 3 sets of data into our final data set - column wise
 
 ```{r}
 #Now column bind all the three data sets to get the complete table
@@ -161,6 +163,9 @@ Combined_Data_All_Col <- cbind(Combined_Data_First_Second_Col, ThirdColActivityD
 
 ```
 
+##Tidying Up:
+
+###Step 1:
 For our assigment we need to be using only mean and standard deviation measurements so We now need to extract only the 'features' that contain the 'mean()' and 'std()' test values (column names that contain the occurences of 'mean()' and 'std()')
 
 ```{r}
@@ -184,7 +189,9 @@ DeepData<-Combined_Data_All_Col
 
 ```
 
-We now have a combined and complete data set as a table which we can process for our tidy data set.
+###We now have a combined and complete data set as a table which we can process for our tidy data set.
+
+###Step 2:
 
 We next map our acivity labels to their respective identifying numbers, so as to get a decriptive label for the activity the subjects were engaged in.
 
@@ -206,6 +213,7 @@ DeepData$activity<-factor(DeepData$activity, levels = activityLabels$Num, labels
 
 ```
 
+###Step 3:
 Next we need to substitute descriptive readable column names for the existing cryptic 'features' names
 
 ```{r}
@@ -218,6 +226,7 @@ names(DeepData)<-gsub("BodyBody", "Body", names(DeepData))
 
 ```
 
+###Step 4:
 Now rearrange the above data set by the average of each 'feature' variable for each activity and each subject 
 
 
@@ -225,6 +234,9 @@ Now rearrange the above data set by the average of each 'feature' variable for e
 DeepDataAggregated<-aggregate(. ~subject + activity, DeepData, mean)
 DeepDataTidy<-DeepDataAggregated[order(DeepDataAggregated$subject,DeepDataAggregated$activity),]
 ```
+
+##FINALLY!!!
+
 As our final step, write this data set to a table and save it as a text file
 
 ```{r}
