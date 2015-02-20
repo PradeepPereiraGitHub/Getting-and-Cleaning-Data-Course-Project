@@ -1,11 +1,3 @@
----
-title: "Runanalysis"
-author: "Pradeep Pereira"
-date: "Sunday, February 15, 2015"
-output: html_document
----
-
-```{r}
 # You should create one R script called run_analysis.R that does the following.
 # STEP 1.Merges the training and the test sets to create one data set.
 # STEP 2.Extracts only the measurements on the mean and standard deviation for each measurement.
@@ -210,10 +202,7 @@ cat("[RunAnalysis.R] - RUNNING STEP 5. From the data set in step 4, creates a se
 DeepDataAggregated<-aggregate(. ~subject + activity, DeepData, mean)
 DeepDataTidy<-DeepDataAggregated[order(DeepDataAggregated$subject,DeepDataAggregated$activity),]
 write.table(DeepDataTidy, file = "DeepDataTidy.txt",row.name=FALSE)
-FromDeepDataTidy <- read.table("./DeepDataTidy.txt",header = FALSE)
+#FromDeepDataTidy <- read.table("./DeepDataTidy.txt",header = FALSE)
 
 
-knit2html("Runanalysis.md")
-
-```
-
+#knit2html("Runanalysis.md")

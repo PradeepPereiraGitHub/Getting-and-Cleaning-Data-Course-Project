@@ -5,6 +5,8 @@ date: "Friday, February 20, 2015"
 output: html_document
 ---
 
+#CodeBook for run_analysis.R Script
+
 ##Data Processing Pre-Requisities:
 
 The data for this assignment is available for download at
@@ -17,6 +19,7 @@ https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Datas
 .\getdata_projectfiles_UCI HAR Dataset.
 
 3. All processing in the runanalysis.R script has been coded to source the requisite data files from the above directory.
+
 
 ##Data Files Used In Processing:
 
