@@ -4,7 +4,7 @@
 # STEP 3.Uses descriptive activity names to name the activities in the data set
 # STEP 4.Appropriately labels the data set with descriptive variable names.
 # STEP 5.From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
-
+# Referenced the image and content at the folowing URL in coding the below solution https://rstudio-pubs-static.s3.amazonaws.com/37290_8e5a126a3a044b95881ae8df530da583.html
 
 library(plyr)
 library(dplyr)
@@ -12,7 +12,7 @@ library(knitr)
 
 
 # STEP 1.Merges the training and the test sets to create one data set.
-cat("[RunAnalysis.R] - RUNNING STEP 1. Merges the training and the test sets to create one data set.", "\n") 
+cat("Script run_analysis.R - RUNNING STEP 1. Merges the training and the test sets to create one data set.", "\n") 
 #Collect the data to create the data table to run our processing
 #The data we need to create this table needs to be gathered from two sets of
 #data 'test' and 'train'(stored in folders with the same respective names). 
@@ -122,7 +122,7 @@ Combined_Data_First_Second_Col <- cbind(FirstColFeaturesData_All, SecondColSubje
 Combined_Data_All_Col <- cbind(Combined_Data_First_Second_Col, ThirdColActivityData_All)
 
 #STEP 2.Extracts only the measurements on the mean and standard deviation for each measurement.
-cat("[RunAnalysis.R] - RUNNING STEP 2. Extracts only the measurements on the mean and standard deviation for each measurement.", "\n") 
+cat("Script run_analysis.R - RUNNING STEP 2. Extracts only the measurements on the mean and standard deviation for each measurement.", "\n") 
 #Now extract only the columns we need for our processing
 #Those are the ones with the string 'mean()' and string 'std()' in them
 #This will be in our first column header values
@@ -153,7 +153,7 @@ FirstColFeaturesData_All_UNQ<-subset(FirstColFeaturesData_All,select=uniqFeature
 ###FirstColFeaturesData_All_UNQ<-tbl_df(FirstColFeaturesData_All_UNQ)
 
 #STEP 2.Extracts only the measurements on the mean and standard deviation for each measurement.
-cat("[RunAnalysis.R] - RUNNING STEP 2. Extracts only the measurements on the mean and standard deviation for each measurement.", "\n") 
+cat("Script run_analysis.R - RUNNING STEP 2. Extracts only the measurements on the mean and standard deviation for each measurement.", "\n") 
 #Retain only the columns with names that match 'mean()' and 'std()'
 FirstColFeaturesData_All_UNQ<-select(FirstColFeaturesData_All_UNQ, matches("mean\\(\\)|std\\(\\)"))
 #This will leave us with 66 columns
@@ -165,7 +165,7 @@ DeepData<-Combined_Data_All_Col
 #####################################################################
 
 #STEP 3.Uses descriptive activity names to name the activities in the data set
-cat("[RunAnalysis.R] - RUNNING STEP 3. Uses descriptive activity names to name the activities in the data set.", "\n") 
+cat("Script run_analysis.R - RUNNING STEP 3. Uses descriptive activity names to name the activities in the data set.", "\n") 
 
 #Get the activity labels to map and replace the 'activity' column
 #number values. 
@@ -184,7 +184,7 @@ names(activityLabels)<-c("Num","Names")
 DeepData$activity<-factor(DeepData$activity, levels = activityLabels$Num, labels = activityLabels$Names) 
 
 #STEP 4.Appropriately labels the data set with descriptive variable names.
-cat("[RunAnalysis.R] - RUNNING STEP 4. Appropriately labels the data set with descriptive variable names.", "\n") 
+cat("Script run_analysis.R - RUNNING STEP 4. Appropriately labels the data set with descriptive variable names.", "\n") 
 
 names(DeepData)<-gsub("^t", "time", names(DeepData))
 names(DeepData)<-gsub("^f", "frequency", names(DeepData))
@@ -196,7 +196,7 @@ names(DeepData)<-gsub("BodyBody", "Body", names(DeepData))
 #verify the change
 #names(DeepData)
 # STEP 5.From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
-cat("[RunAnalysis.R] - RUNNING STEP 5. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.", "\n") 
+cat("Script run_analysis.R - RUNNING STEP 5. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.", "\n") 
 
 
 DeepDataAggregated<-aggregate(. ~subject + activity, DeepData, mean)
