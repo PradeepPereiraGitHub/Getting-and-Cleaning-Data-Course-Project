@@ -4,9 +4,8 @@ author: "Pradeep Pereira"
 date: "Friday, February 20, 2015"
 output: html_document
 ---
-ALL INSTRUCTIONS GIVEN BELOW ARE FOR A WINDOWS 8 OPERATING SYSTEM
 
-Data Processing Pre-Requisities:
+##Data Processing Pre-Requisities:
 
 The data for this assignment is available for download at
 
@@ -21,7 +20,7 @@ https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Datas
 
 Data Files Used In Processing:
 
-## X_train.txt
+# X_train.txt
 
 ```{r}
 summary(cars)
