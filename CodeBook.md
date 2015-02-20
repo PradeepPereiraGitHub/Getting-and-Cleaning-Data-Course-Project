@@ -172,6 +172,25 @@ Combined_Data_All_Col <- cbind(Combined_Data_First_Second_Col, ThirdColActivityD
 For our assigment we need to be using only mean and standard deviation measurements so we now need to extract only the 'features' that contain the 'mean()' and 'std()' test values (column names that contain the occurences of 'mean()' and 'std()')
 
 ```{r}
+#METHOD USING the 'dplyr' package
+#There seem to be duplicate column names in the first data set of
+#561 columns containing the features data, so we get the unique list
+#DPLYR' select statement does not like that and flags an error
+
+uniqFeaturesColNames<-unique(names(FirstColFeaturesData_All)) 
+#477 columns vs 561 with duplicates
+FirstColFeaturesData_All_UNQ<-subset(FirstColFeaturesData_All,select=uniqFeaturesColNames)
+
+#Retain only the columns with names that match 'mean()' and 'std()'
+FirstColFeaturesData_All_UNQ<-select(FirstColFeaturesData_All_UNQ, matches("mean\\(\\)|std\\(\\)"))
+#This will leave us with 66 columns
+#Add the 'subject' column
+Combined_Data_First_Second_Col <- cbind(FirstColFeaturesData_All_UNQ, SecondColSubjectData_All)
+#Add the 'activity' column
+Combined_Data_All_Col <- cbind(Combined_Data_First_Second_Col, ThirdColActivityData_All)
+DeepData<-Combined_Data_All_Col
+
+USING THE 'base' package functions
 #Now extract only the columns we need for our processing
 #Those are the ones with the string 'mean()' and string 'std()' in them
 #This will be in our first column header values
@@ -189,6 +208,8 @@ subset_ColNames_To_Keep<-c(as.character(subset_ColNames_We_Need), "subject", "ac
 
 Combined_Data_All_Col_Subset<-subset(Combined_Data_All_Col,select=subset_ColNames_To_Keep)
 DeepData<-Combined_Data_All_Col_Subset
+
+
 
 ```
 
