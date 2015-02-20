@@ -68,7 +68,7 @@ We will build 3 different data sets and combine them for our final data set
 
 ###The First Data Set:
 
-We first build a data table of the 'train' and 'test' data with selected 'features' as the column names
+We first build a data table of the 'train' and 'test' data with ALL the 'features' as the column names
 
 ```{r}
 #BUILDING THE FIRST DATA SET OF COLUMNS
@@ -119,7 +119,7 @@ SecondColSubjectData_Test <- read.table("./getdata_projectfiles_UCI HAR Dataset/
 #IF NOT YOU WILL SKEW THE SUBJECT IDENTITY NUMBER MAPPINGS
 SecondColSubjectData_All<- rbind(SecondColSubjectData_Train, SecondColSubjectData_Test)
 
-#Assign the variable (column) name for the second column
+#Assign the variable (column) name for the column
 names(SecondColSubjectData_All) <- c("subject")
 
 
@@ -147,7 +147,7 @@ ThirdColActivityData_Test <- read.table("./getdata_projectfiles_UCI HAR Dataset/
 #IF NOT YOU WILL SKEW THE SUBJECT SERIAL NUMBER MAPPINGS
 ThirdColActivityData_All<- rbind(ThirdColActivityData_Train, ThirdColActivityData_Test)
 
-#Assign the variable (column) name for the second column
+#Assign the variable (column) name for the column
 names(ThirdColActivityData_All) <- c("activity")
 
 ```
@@ -166,7 +166,7 @@ Combined_Data_All_Col <- cbind(Combined_Data_First_Second_Col, ThirdColActivityD
 ##Tidying Up:
 
 ###Step 1:
-For our assigment we need to be using only mean and standard deviation measurements so We now need to extract only the 'features' that contain the 'mean()' and 'std()' test values (column names that contain the occurences of 'mean()' and 'std()')
+For our assigment we need to be using only mean and standard deviation measurements so we now need to extract only the 'features' that contain the 'mean()' and 'std()' test values (column names that contain the occurences of 'mean()' and 'std()')
 
 ```{r}
 #Now extract only the columns we need for our processing
@@ -184,8 +184,8 @@ subset_ColNames_To_Keep<-c(as.character(subset_ColNames_We_Need), "subject", "ac
 #Use the above vector of column names to extract a subset of data
 #we need for our processing
 
-Combined_Data_All_Col<-subset(Combined_Data_All_Col,select=subset_ColNames_To_Keep)
-DeepData<-Combined_Data_All_Col
+Combined_Data_All_Col_Subset<-subset(Combined_Data_All_Col,select=subset_ColNames_To_Keep)
+DeepData<-Combined_Data_All_Col_Subset
 
 ```
 
@@ -214,7 +214,7 @@ DeepData$activity<-factor(DeepData$activity, levels = activityLabels$Num, labels
 ```
 
 ###Step 3:
-Next we need to substitute descriptive readable column names for the existing cryptic 'features' names
+Next we need to substitute descriptive readable column names for the existing cryptic column names that are based on the 'features' names
 
 ```{r}
 names(DeepData)<-gsub("^t", "time", names(DeepData))
@@ -235,7 +235,7 @@ DeepDataAggregated<-aggregate(. ~subject + activity, DeepData, mean)
 DeepDataTidy<-DeepDataAggregated[order(DeepDataAggregated$subject,DeepDataAggregated$activity),]
 ```
 
-##FINALLY!!!
+##ARE WE THERE YET??? - FINALLY, YES!!! 
 
 As our final step, write this data set to a table and save it as a text file
 
@@ -243,11 +243,3 @@ As our final step, write this data set to a table and save it as a text file
 write.table(DeepDataTidy, file = "DeepDataTidy.txt",row.name=FALSE)
 
 ```
-
-You can also embed plots, for example:
-
-```{r, echo=FALSE}
-plot(cars)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
