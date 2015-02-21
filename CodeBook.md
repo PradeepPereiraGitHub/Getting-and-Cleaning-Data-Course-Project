@@ -155,7 +155,7 @@ names(ThirdColActivityData_All) <- c("activity")
 
 ```
 
-###Combine the above 3 sets of data into our final data set - column wise
+###Combine the above 3 sets of data into our final data set - do so column wise
 
 ```{r}
 #Now column bind all the three data sets to get the complete table
