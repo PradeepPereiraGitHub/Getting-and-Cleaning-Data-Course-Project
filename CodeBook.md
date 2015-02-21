@@ -259,9 +259,9 @@ DeepDataAggregated<-aggregate(. ~subject + activity, DeepData, mean)
 DeepDataTidy<-DeepDataAggregated[order(DeepDataAggregated$subject,DeepDataAggregated$activity),]
 ```
 
-##ARE WE THERE YET??? - FINALLY, YES!!! 
+##ARE WE THERE YET??? 
 
-As our final step, write this data set to a table and save it as a text file
+As our final step, write this tidy data set to a text file and save it.
 
 ```{r}
 write.table(DeepDataTidy, file = "DeepDataTidy.txt",row.name=FALSE)
