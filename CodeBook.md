@@ -251,7 +251,7 @@ names(DeepData)<-gsub("BodyBody", "Body", names(DeepData))
 ```
 
 ###Step 4:
-Now rearrange the above data set by the average of each 'feature' variable for each activity and each subject 
+Now rearrange the above data set by aggregating it on the subject and activity values and getting the mean value across all of them for all selected measurements. Next order the data set by subject and activity.
 
 
 ```{r}
